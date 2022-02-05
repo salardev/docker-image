@@ -1,0 +1,25 @@
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  name: eap-kerb
+spec:
+---
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: eap-kerb
+  labels:
+    app: eap-kerb
+spec:
+  source:
+    type: Git
+    git:
+      uri: GIT_REP_URL
+  strategy:
+    type: Docker                      
+    dockerStrategy:
+      dockerfilePath: Dockerfile
+  output:
+    to:
+      kind: ImageStreamTag
+      name: eap-kerb:latest
